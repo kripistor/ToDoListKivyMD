@@ -1,0 +1,37 @@
+MDBoxLayout:
+    id: box
+    orientation: 'vertical'
+    MDLabel:
+        id: tack_label
+        size_hint: 0.3, 0.3
+        halign: 'center'
+        markup: True
+        text: "[u][size=48][b]My Tasks[/b][/size][/u]"
+        pos_hint: {'center_x': .5}
+        text_size: 10, 10
+    MDTextField:
+        id: listinput
+        hint_text: 'Add Item'
+        mode: 'rectangle'
+        size_hint_x: .9
+        pos_hint: {'center_x': .5}
+        psd_hint: {'center_y': .5}
+        text_validate_unfocus: False
+        on_text_validate: app.add_item(listinput.text)
+
+    ScrollView:
+        MDList:
+            id: list
+<ListItemWithCheckbox>:
+    markup: True
+    id: the_list_item
+
+    IconRightWidget:
+        icon: 'trash-can-outline'
+        on_release:
+            root.delete_item(the_list_item)
+
+    LeftCheckbox:
+        id: check
+        on_release:
+            root.mark(check, the_list_item)
