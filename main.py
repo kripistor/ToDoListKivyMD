@@ -33,7 +33,9 @@ class ListItemWithCheckbox(OneLineAvatarIconListItem):
 
         self.parent.remove_widget(the_list_item)
         conn = engine.connect()
-        conn.execute(tasks.delete().where(tasks.c.task == the_list_item.text))
+        text = the_list_item.text.replace('[s]', '')
+        text = text.replace('[/s]', '')
+        conn.execute(tasks.delete().where(tasks.c.task == text))
         conn.commit()
 
 class LeftCheckbox(ILeftBodyTouch, MDCheckbox):
